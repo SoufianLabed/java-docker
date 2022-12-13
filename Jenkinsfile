@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('git checkout') {
             steps {
-                git credentialsId: '9cdca2ad-b9f3-4258-9065-da9bbc66a241', url: 'https://github.com/Swillam/java-docker'
+                git credentialsId: 'a11c9e21-3ede-4558-9bdf-e09f7da4d2be', url: 'https://github.com/SoufianLabed/java-docker'
             }
         }
         
@@ -20,24 +20,8 @@ pipeline {
         }
         stage('Build the docker image') { 
             steps{
-                sh "docker build -t shawnmodestine/jenkins_triangle:1.0.0 ."
+                sh "docker build -t skyzyn/jenkins_triangle:1.0.0 ."
             }
         }
-        stage('Push the docker image') {
-            steps{
-                withCredentials([string(credentialsId: 'dockerhubpass', variable: 'dockerHubPass')]) {
-                    sh "docker login -u shawnmodestine -p $dockerHubPass  docker.io"
-                }
-                sh 'docker push shawnmodestine/jenkins_triangle:1.0.0'
-            } 
-        }
-    }
-    post{
-        failure{
-            emailext body: 'Ce Build $BUILD_NUMBER a échoué',
-                recipientProviders: [requestor()], 
-                subject: 'build', 
-                to: 'shawn.modestine@gmail.com'
-        } 
     }
 }
