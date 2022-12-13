@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Build the docker image') { 
             steps{
-                sh "docker build -t skyzyn/jenkins_triangle:1.0.0 ."
+                sh "docker build -t skyzyn/jenkins_triangle:1.0.0 "
             }
         }
     }
