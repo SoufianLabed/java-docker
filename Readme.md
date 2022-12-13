@@ -16,6 +16,8 @@ The repo is split into multiple branches, each contains a specific topic. The `D
 - `graal`: This part uses graal VM to create native images for existing JVM-based applications.
 - `sb`: This branch contains a simple instructions to run the [petclinic](https://github.com/spring-projects/spring-petclinic) application and test how it behaves running inside a java 8 docker container, and java 11!
 
+
+
 ### Benchmarking
 
 the `bench.sh` run each container and print at the end the total size of the image + the time it takes for teh container to run! for me I named the images: `plain`, `cdc`,`aot`,`graal`, `alpine` and `mod`. I prefixed each of them with `dj`! Executing the scripts shows below results in my machine:
