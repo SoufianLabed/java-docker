@@ -23,11 +23,22 @@ pipeline {
                 sh "docker build -t skyzyn/jenkins_triangle:1.0.0 ."
             }
         }
+        
+        stage('Push the docker image') {
+            steps{
+                withCredentials([string(credentialsId: 'dockerhubpass', variable: 'dockerHubPass')]) {
+                    sh "docker login -u skyzyn -p $dockerHubPass  docker.io"
+                }
+                sh 'docker push skyzyn/jenkins_triangle:1.0.0'
+            } 
+        }        
     }
-      post{
-          failure{
-              emailext body: "Ce Build $BUILD_NUMBER a échoué",
-                  recipientProviders:[requestor()], subject: "build", to:"labedsoufian@gmail.com"
-          }
-      }
+    post{
+        failure{
+            emailext body: 'Ce Build $BUILD_NUMBER a échoué',
+                recipientProviders: [requestor()], 
+                subject: 'build', 
+                to: 'labedsoufian@gmail.com'
+        } 
+    }
 }
