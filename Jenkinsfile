@@ -26,8 +26,8 @@ pipeline {
         
         stage('Push the docker image') {
             steps{
-                withCredentials([string(credentialsId: 'dockerhubpass', variable: 'dockerHubPass')]) {
-                    sh "docker login -u skyzyn -p $dockerHubPass  docker.io"
+                withCredentials([string(credentialsId: 'dockerhubpass', variable: 'dockerhubpass')]) {
+                    sh "docker login -u skyzyn -p $dockerhubpass  docker.io"
                 }
                 sh 'docker push skyzyn/jenkins_triangle:1.0.0'
             } 
